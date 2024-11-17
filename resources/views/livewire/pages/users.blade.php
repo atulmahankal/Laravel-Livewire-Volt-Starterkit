@@ -22,23 +22,12 @@ function __construct(){
 
 mount(function () {
     $users = app(App\Http\Controllers\UserController::class)->index();
-
-    // $response = Http::withOptions(['cookies' => true])
-    //     ->get(route('users.index'));
-
-    // if ($response->successful()) {
-    //     $this->users = $response->json();
-    // } else {
-    //     $this->addError('api', 'Failed to fetch users.');
-    // }
 });
 ?>
 
 <div>
+    @section('content')
     <h1>Posts</h1>
-{{ $response }}
-    {{-- @error('api')
-        <p style="color: red;">{{ $message }}</p>
-    @enderror --}}
-
+        {{ $response }}
+    @endsection
 </div>

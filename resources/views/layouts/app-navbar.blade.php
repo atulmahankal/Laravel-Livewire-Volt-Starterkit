@@ -13,6 +13,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Route::is('dashboard') ? 'border-2 border-bottom' : '' }}" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::is('users') ? 'border-2 border-bottom' : '' }}" href="{{ route('users') }}">{{ __('Users') }}</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        // return $this->update($request);
+
+        $users = User::select('id','name','email','contact')->get();
         return response()->json($users);
     }
 
@@ -21,7 +24,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->update($request);
     }
 
     /**
@@ -35,9 +38,23 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id = null)
     {
-        //
+        $rule = [
+            'title' => 'required|max:255',
+            'body' => 'required',
+        ];
+
+        // $request->validate($rule);
+
+        $validator = Validator::make($request->all(), $rule);
+
+        if ($validator->fails()) {
+            $this->validationError($validator->messages());
+        }
+
+        // Retrieve the validated input...
+        $validatedData = $validator->validated();
     }
 
     /**

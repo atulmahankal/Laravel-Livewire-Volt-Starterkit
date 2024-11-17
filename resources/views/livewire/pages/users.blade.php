@@ -1,33 +1,60 @@
 <?php
 
 use function Livewire\Volt\{layout, state, title, mount};
-
-use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 
 layout('layouts.app');
 
 title('Users');
 
-state([
-    'users' => [],
-    'user' => null,
-    'response' => null,
-]);
-
-$increment = fn () => $this->count++;
-
-function __construct(){
-    $this->middleware('auth');
-}
+state(['users', 'user']);
 
 mount(function () {
-    $users = app(App\Http\Controllers\UserController::class)->index();
+    $this->users = getAllUsers();
 });
+
+function getAllUsers()
+{
+    try {
+        $request = new Request();
+        $response = app(App\Http\Controllers\UserController::class)->index($request);
+
+        $data = $response->getData(true);
+        $status = $response->getStatusCode();
+
+        return $data;
+    } catch (\Exception $e) {
+        // dd($e->getMessage(), $e->getTrace()); // Inspect the error message and stack trace
+        return [];
+    }
+}
 ?>
 
 <div>
-    @section('content')
-    <h1>Posts</h1>
-        {{ $response }}
-    @endsection
+@section('content')
+<div class="container">
+    <h1>User List</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($users as $user)
+            <tr>
+                <td>{{ $loop->index + 1 }}</td>
+                <td>{{ $user['name'] }}</td>
+                <td>{{ $user['email'] }}</td>
+                <td>{{ $user['contact'] }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+@endsection
 </div>

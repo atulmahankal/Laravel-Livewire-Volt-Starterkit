@@ -52,12 +52,12 @@ function getAllUsers()
                 <td>{{ $user['name'] }}</td>
                 <td>{{ $user['email'] }}</td>
                 <td>{{ $user['contact'] }}</td>
-                <td>
-                  <button class="btn btn-primary">
+                <td class="text-center">
+                  <button class="btn btn-primary" @if($user['id'] == auth()->user()->id) disabled @endif>
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
 
-                  <button class="btn btn-danger">
+                  <button class="btn btn-danger" @if($user['id'] == auth()->user()->id) disabled @endif>
                     <i class="fa-solid fa-trash"></i>
                   </button>
                 </td>

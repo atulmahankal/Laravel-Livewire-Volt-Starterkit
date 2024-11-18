@@ -42,6 +42,7 @@ function getAllUsers()
                 <th>Name</th>
                 <th>Email</th>
                 <th>Contact</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -51,6 +52,15 @@ function getAllUsers()
                 <td>{{ $user['name'] }}</td>
                 <td>{{ $user['email'] }}</td>
                 <td>{{ $user['contact'] }}</td>
+                <td>
+                  <button class="btn btn-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+
+                  <button class="btn btn-danger">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </td>
             </tr>
             @endforeach
         </tbody>

@@ -1,6 +1,6 @@
 <?php
 
-use function Livewire\Volt\{layout, state, title, mount};
+use function Livewire\Volt\{layout, state, title, mount, computed};
 use Illuminate\Http\Request;
 
 layout('layouts.app');
@@ -8,15 +8,41 @@ layout('layouts.app');
 title('Users');
 
 state(['users', 'user']);
+state([
+  'search' => '',
+  'sort' => '',
+  'order' => 'asc',
+  'limit' => '10',
+  'page' => '1',
+])->url(history: true, keep: true);
 
 mount(function () {
-    $this->users = getAllUsers();
+  $this->users = getAllUsers(
+    $this->search,
+    $this->sort,
+    $this->order,
+    $this->limit,
+    $this->page
+  );
 });
 
-function getAllUsers()
+function getAllUsers(
+  $search = '',
+  $sort = '',
+  $order = 'asc',
+  $limit = '10',
+  $page = '1'
+)
 {
     try {
-        $request = new Request();
+        $request = new Request([
+            'search' => $search,
+            'sort' => $sort,
+            'order' => $order,
+            'limit' => $limit,
+            'page' => $page,
+        ]);
+
         $response = app(App\Http\Controllers\UserController::class)->index($request);
 
         $data = $response->getData(true);
@@ -27,7 +53,8 @@ function getAllUsers()
         // dd($e->getMessage(), $e->getTrace()); // Inspect the error message and stack trace
         return [];
     }
-}
+};
+
 ?>
 
 <div>

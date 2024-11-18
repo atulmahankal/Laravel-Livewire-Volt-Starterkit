@@ -1,12 +1,13 @@
-# LaraAntra
+# Laravel Livewire Volt Starterkit
 
-This is a Laravel project built using default authentication and basic scaffolding. It serves as a starting point for creating a web application, with the flexibility to add features as needed.
+This is a Laravel project built using default authentication and basic scaffolding. It serves as a starting point for creating a web application and allows you to add features as needed.
 
 ## Features
 
 - Laravel framework setup with default authentication.
 - Pre-installed authentication system (login, registration, password reset).
 - Basic UI components for dashboard and user management.
+- Livewire Volt to make SPA (Single Page Application)
 - Modular structure for easy feature addition and customization.
 
 ## Prerequisites
@@ -20,12 +21,11 @@ Before getting started, ensure you have the following installed:
 
 ## Installation
 
-1. **Clone the repository**
+1. **Downloadable archive path**
 
-    ```bash
-    git clone --depth=1 https://github.com/laravel-laraantra-template.git your-project-name
-    cd your-project-name
-    ```
+   ```url
+   https://github.com/atulmahankal/Laravel-Livewire-Volt-Starterkit/archive/refs/heads/master.zip
+   ```
 
 2. **Install PHP dependencies**
 

@@ -1,8 +1,15 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "This is a Laravel project built using default authentication and basic scaffolding. It serves as a starting point for creating a web application and allows you to add features as needed.",
+    "keywords": [
+        "laravel",
+        "framework",
+        "Livewire",
+        "Volt",
+        "Starter",
+        "kit"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",

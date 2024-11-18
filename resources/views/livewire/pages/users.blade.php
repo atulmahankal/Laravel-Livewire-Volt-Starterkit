@@ -67,4 +67,10 @@ function getAllUsers()
     </table>
 </div>
 @endsection
+
+@push('scripts')
+<script type='module'>
+
+</script>
+@endpush
 </div>

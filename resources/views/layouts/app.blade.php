@@ -7,6 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @stack('meta')
+
     <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
@@ -15,6 +17,9 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @livewireStyles
+    @stack('style')
 </head>
 <body>
     <div id="app">
@@ -24,5 +29,9 @@
             @yield('content')
         </main>
     </div>
+
+    @livewireScripts
+    @stack('modal')
+    @stack('scripts')
 </body>
 </html>

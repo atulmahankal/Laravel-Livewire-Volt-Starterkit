@@ -13,9 +13,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-      dd($request->all());
-      //?search=3210&sort=id&order=asc&offset=30&limit=10
-        $users = User::query()
+      //?search=3210&sort=name&order=desc&perPage=5&page=3
+
+        // Filter query
+        $filteredQuery = User::query()
             ->when($request->has('search'), function ($query) use ($request) {
                 $query->where('name', 'like', "%{$request->search}%")
                   ->orWhere('email', 'LIKE', "%{$request->search}%")
@@ -40,18 +41,12 @@ class UserController extends Controller
                 }
                 $query->orderBy($sortColumn, $sortOrder);
             })
-            ->when(($request->has('page') || $request->has('offset')) && $request->has('limit'), function ($query) use ($request) {
-                $limit = $request->limit ?? 10; // Default to 10 records per page
-                $offset = $request->offset ?? 0; // Default to 0 if not provided
+            ->select('id','name','email','contact');
 
-                // Calculate page number from offset
-                $page = $request->page ?? (int)($offset / $limit) + 1;
-
-                $query->paginate($limit, ['*'], 'page', $page);
-            })
-            ->select('id','name','email','contact')->get();
-
-        return response()->json($users);
+        return $this->customePagination(
+            User::count(),
+            $filteredQuery
+        );
     }
 
     /**

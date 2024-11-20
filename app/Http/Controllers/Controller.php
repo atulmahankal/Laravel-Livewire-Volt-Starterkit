@@ -25,4 +25,24 @@ class Controller extends BaseController
             'errors' => $errors,
         ], 422);
     }
+
+    public function customePagination($total, $filteredQuery)
+    {
+      // Get filtered total count
+      $filteredTotal = $filteredQuery->count();
+
+      // Paginate the filtered results
+      $paginatedResults = $filteredQuery->paginate($request->perPage ?? 10);
+
+      return response()->json(array(
+        'current_page' => $paginatedResults->currentPage(),
+        'from' => $paginatedResults->firstItem(),
+        'to' => $paginatedResults->lastItem(),
+        'last_page' => $paginatedResults->lastPage(),
+        'per_page' => $paginatedResults->perPage(),
+        'data' => $paginatedResults->items(),
+        'filtered_total' => $filteredTotal,
+        'total' => $total
+      ));
+    }
 }

@@ -13,4 +13,5 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 
 Route::middleware('auth:sanctum')->group(function () {
   Volt::route('/users', 'pages.users')->name('users');
+  Volt::route('/usersfuncn', 'pages.usersFunctional');
 });
